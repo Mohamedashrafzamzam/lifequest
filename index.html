@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LifeQuest</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#eef2f7;--card:#fff;--ink:#1f2a44;--mute:#667089;--line:#dbe2ee;--gold:#f2b632;--teal:#1c8c80;--plum:#6b4fa0;--soft:#e4ebf5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141b2e;--card:#1e2740;--ink:#eaeefa;--mute:#98a3c0;--line:#2e3a5c;--gold:#f6c453;--teal:#3fc0b0;--plum:#a48ae0;--soft:#27324f}}
+:root[data-theme="dark"]{--bg:#141b2e;--card:#1e2740;--ink:#eaeefa;--mute:#98a3c0;--line:#2e3a5c;--gold:#f6c453;--teal:#3fc0b0;--plum:#a48ae0;--soft:#27324f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,system-ui,sans-serif;margin:0;letter-spacing:-.01em}
+main{max-width:520px;margin:0 auto;padding:16px 16px 90px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.top h1{font-size:24px;font-weight:800}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-weight:600;font-size:14px}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:20px;display:flex;gap:18px;align-items:center}
+.ring{position:relative;width:132px;height:132px;flex:none}
+.ring svg{transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring b{font:800 30px 'Bricolage Grotesque',sans-serif}
+.ring span{font-size:12px;color:var(--mute)}
+.hero p{margin:4px 0 0;color:var(--mute);font-size:14px}
+.lvl{height:8px;background:var(--soft);border-radius:9px;margin-top:10px;overflow:hidden}
+.lvl i{display:block;height:100%;background:var(--plum);border-radius:9px}
+.row{display:flex;gap:8px;margin:14px 0}
+.row button{flex:1}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:10px 12px;font-weight:600}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.q{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px;margin-bottom:8px;width:100%;text-align:left}
+.q.done{background:var(--soft)}
+.q .ic{font-size:24px}
+.q .t{flex:1}.q .t small{display:block;color:var(--mute);font-weight:400}
+.q .xp{font-weight:800;color:var(--teal)}
+.q.done .t strong{text-decoration:line-through;color:var(--mute)}
+.chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none}
+.done .chk{background:var(--teal);border-color:var(--teal);color:#fff}
+.note{background:var(--card);border-left:5px solid var(--gold);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.note.rest{border-color:var(--teal)}
+.add{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+input,select{font:inherit;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px;min-width:0}
+input{flex:1 1 140px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.stat b{font:800 22px 'Bricolage Grotesque',sans-serif;display:block}
+.stat span{font-size:12px;color:var(--mute)}
+.bars{display:flex;align-items:flex-end;gap:8px;height:120px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px;color:var(--mute)}
+.bar i{width:100%;border-radius:6px 6px 2px 2px;background:var(--teal);min-height:3px}
+.bar i.r{background:var(--gold)}
+.sec{margin:20px 0 8px;font-size:18px}
+.rw{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:8px}
+.rw .t{flex:1}
+.rw button:disabled{opacity:.45;cursor:default}
+.why li{margin-bottom:10px}
+.why b{color:var(--plum)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+nav div{display:flex;max-width:520px;width:100%;gap:6px}
+nav button{flex:1;border:0;background:none;font-size:13px;padding:6px}
+nav button.on{background:var(--soft);color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:600;font-size:14px;max-width:90%;text-align:center}
+.x{border:0;background:none;color:var(--mute);padding:4px 8px}
+@media (prefers-reduced-motion:no-preference){.ring circle.p{transition:stroke-dashoffset .6s ease}}
+
+body,button,input,select,textarea{font-family:'Pixelify Sans',ui-monospace,monospace;font-size:17px}
+h1,h2,h3,.ring b,.stat b{font-family:'Pixelify Sans',ui-monospace,monospace;font-weight:700}
+*{border-radius:0!important}
+.hero,.q,.stat,.rw,.note,.bars,button,.pill,input,select,textarea,.chap{border:3px solid var(--ink)!important;box-shadow:4px 4px 0 var(--ink)}
+button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.x,nav button{border:0!important;box-shadow:none!important}
+nav{border-top:4px solid var(--ink)}
+.lvl{border:2px solid var(--ink)}
+svg.px{image-rendering:pixelated;shape-rendering:crispEdges;flex:none}
+.top h1{display:flex;align-items:center;gap:8px}
+textarea{width:100%;min-height:90px;background:var(--card);color:var(--ink);padding:10px;resize:vertical}
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+.sw button{width:36px;height:36px;padding:0}
+.sw button.on{outline:3px solid var(--gold);outline-offset:2px}
+.chap{background:var(--card);padding:10px 12px;margin-bottom:10px;font-size:15px}
+.chap.lock{opacity:.5}
+.stage{display:flex;justify-content:center;background:var(--soft);border:3px solid var(--ink);padding:14px;margin:8px 0 12px}
+nav button{font-size:12px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<nav><div id="nav"></div></nav>
+<div id="toast" class="toast" hidden></div>
+<script>
+const KEY='lifequest_v1';
+const dflt=()=>({quests:[
+{id:'gym',n:'Workout',ic:'🏋️',xp:30,s:'Body'},{id:'study',n:'Study 30 min',ic:'📚',xp:30,s:'Mind'},
+{id:'read',n:'Read 10 pages',ic:'📖',xp:20,s:'Mind'},{id:'walk',n:'Walk outside',ic:'🚶',xp:15,s:'Body'},
+{id:'med',n:'Meditate 5 min',ic:'🧘',xp:15,s:'Spirit'},{id:'sleep',n:'Sleep 7h+',ic:'😴',xp:20,s:'Body'}],
+rewards:[{id:'r1',n:'Favorite coffee',c:40},{id:'r2',n:'Movie night',c:90},{id:'r3',n:'Lazy morning, no guilt',c:60}],
+log:{},spent:0,tab:'today'});
+const HERO=()=>({name:'Hero',gender:'man',hair:'short',hairC:'#5a3b1e',skin:'#f1c27d',outfit:'#1c8c80',story:'',goal:''});
+const SHADOWS=()=>[{id:'s1',n:'Doomscrolling'},{id:'s2',n:'Junk food binge'},{id:'s3',n:'Skipped my plan'}];
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))||dflt()}catch(e){S=dflt()}
+S.hero=S.hero||HERO();S.slips=S.slips||[];S.shadows=S.shadows||SHADOWS();
+if(S.tab==='why')S.tab='care';
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const dk=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const ago=n=>{const d=new Date();d.setDate(d.getDate()-n);return dk(d)};
+const today=()=>dk(new Date());
+const day=k=>S.log[k]||(S.log[k]={done:[],energy:'normal',rest:false});
+const GOAL={low:60,normal:100,high:140};
+const dayXP=k=>{const d=S.log[k];return d?d.done.reduce((a,e)=>a+e.xp,0):0};
+const dayBonus=k=>{const d=S.log[k];return d?d.done.reduce((a,e)=>a+(e.b||0),0)+(d.rest?10:0):0};
+const restXP=k=>S.log[k]&&S.log[k].rest?10:0;
+const totalXP=()=>Object.keys(S.log).reduce((a,k)=>a+dayXP(k)+restXP(k)+(S.log[k].extra||0),0);
+const penalty=()=>S.slips.filter(x=>!x.f).reduce((a,x)=>a+x.w*10,0);
+const credits=()=>Math.max(0,Object.keys(S.log).reduce((a,k)=>a+dayXP(k)+dayBonus(k)+(S.log[k].extra||0),0)-S.spent-penalty());
+function forgive(n){let c=0;S.slips.forEach(x=>{if(!x.f&&c<n){x.f=1;c++}});return c}
+const R=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`;
+function sprite(h,px){const L=levelInfo(totalXP()).l,w=h.gender==='woman',g='#f2b632';let o='';
+ if(L>=3)o+=R(3,10,10,9,'#b83b5e');
+ if(h.hair==='long')o+=R(3,3,10,10,h.hairC);
+ o+=R(4,3,8,7,h.skin)+R(2,10,2,4,h.outfit)+R(12,10,2,4,h.outfit)+R(2,14,2,1,h.skin)+R(12,14,2,1,h.skin)+R(4,10,8,6,h.outfit);
+ o+=w?R(3,15,10,3,h.outfit)+R(5,18,2,2,h.skin)+R(9,18,2,2,h.skin):R(5,16,2,4,'#3b3f5c')+R(9,16,2,4,'#3b3f5c');
+ if(L>=2)o+=R(4,14,8,1,g);
+ o+=R(6,6,1,2,'#1f2a44')+R(9,6,1,2,'#1f2a44')+R(7,9,2,1,'#b5524a');
+ o+=R(4,2,8,3,h.hairC)+R(3,3,1,3,h.hairC)+R(12,3,1,3,h.hairC);
+ if(h.hair==='spiky')o+=R(4,1,2,1,h.hairC)+R(7,0,2,2,h.hairC)+R(10,1,2,1,h.hairC);
+ if(h.hair==='long')o+=R(3,6,1,6,h.hairC)+R(12,6,1,6,h.hairC);
+ if(L>=5)o+=R(14,8,1,7,'#cfd8dc')+R(13,15,3,1,g);
+ if(L>=8)o+=R(4,0,1,2,g)+R(7,0,2,1,g)+R(11,0,1,2,g)+R(4,1,8,1,g);
+ return `<svg class="px" width="${px}" height="${px*1.25}" viewBox="0 0 16 20" role="img" aria-label="Your hero">${o}</svg>`}
+const CHAP=[[1,'{n} wakes in a quiet village with an empty journal and one big idea: get a little better every day.'],[2,'{n} finds a golden belt on the road. Habits hold a life together, just like belts do.'],[3,'A crimson cape appears. Neighbors start to notice {n}\'s steady effort.'],[4,'{n} stumbles in a dark forest, gets back up, and learns that falling is part of every path.'],[5,'A sword from the old forge. {n} learns that strength is built from small, repeated moves.'],[8,'A crown made of ordinary days. {n} rules over habits, not over other people.']];
+const KIND=['Thank you for being honest. That takes courage.','One slip does not change who you are.','You are still on your path. Small steps still count.','Be kind to yourself. Say what you would say to a friend.','Honesty is a win. You are learning how you work.'];
+const active=k=>{const d=S.log[k];return !!d&&(d.done.length>0||d.rest)};
+function levelInfo(x){let l=1,need=100;while(x>=need){x-=need;l++;need=100+30*(l-1)}return{l,x,need}}
+function streak(){let s=0,lastMiss=-99;for(let i=0;i<400;i++){const a=active(ago(i));
+ if(a){s++}else if(i===0){continue}else{if(i-lastMiss<7&&lastMiss>=0)break;if(i>=365)break;lastMiss=i}
+ if(i>60&&!a&&lastMiss===i)break}return s}
+const weekActive=()=>[...Array(7)].filter((_,i)=>active(ago(i))).length;
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2600)}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function complete(id){
+ const t=today(),d=day(t),q=S.quests.find(x=>x.id===id);if(!q)return;
+ const i=d.done.findIndex(e=>e.id===id);
+ if(i>=0){d.done.splice(i,1);save();return render()}
+ const goal=GOAL[d.energy],over=dayXP(t)>=goal;
+ const xp=over?Math.round(q.xp/2):q.xp;
+ const e={id,xp,b:0};
+ if(Math.random()<0.2){e.b=5;toast('✨ Bonus find: +5 credits')}
+ else if(over)toast('Goal already met. Extra effort counts at half value.');
+ else toast('+'+xp+' XP');
+ d.done.push(e);
+ if(!over&&dayXP(t)>=goal){const f=forgive(1);setTimeout(()=>toast(f?'🎉 Goal met! One shadow was forgiven and its credits returned.':'🎉 Daily goal reached. You can stop here.'),700)}
+ save();render();
+}
+function ringHTML(t){
+ const d=day(t),goal=GOAL[d.energy],x=dayXP(t),p=Math.min(1,x/goal),r=58,c=2*Math.PI*r;
+ return `<div class="ring"><svg width="132" height="132" viewBox="0 0 132 132"><circle cx="66" cy="66" r="${r}" fill="none" stroke="var(--soft)" stroke-width="12"/><circle class="p" cx="66" cy="66" r="${r}" fill="none" stroke="${p>=1?'var(--gold)':'var(--teal)'}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c*(1-p)}"/></svg><div class="c"><b>${x}</b><span>of ${goal} XP</span></div></div>`;
+}
+function today_(){
+ const t=today(),d=day(t),L=levelInfo(totalXP()),goal=GOAL[d.energy],met=dayXP(t)>=goal;
+ let msg='';
+ if(d.rest)msg='<div class="note rest"><b>Rest day logged.</b> Recovery counts. Your streak is safe.</div>';
+ else if(met)msg='<div class="note"><b>Goal met.</b> Anything extra is a bonus at half value. Stopping now is a win.</div>';
+ else if(weekActive()>=6)msg='<div class="note rest">You have been active 6+ days this week. A rest day would help you keep this up.</div>';
+ return `<div class="top"><h1>${sprite(S.hero,36)} ${esc(S.hero.name)}</h1><span class="pill">🪙 ${credits()}</span></div>
+ <section class="hero">${ringHTML(t)}<div style="flex:1"><h2>Level ${L.l}</h2><p>${L.x} / ${L.need} XP to next level</p><div class="lvl"><i style="width:${L.x/L.need*100}%"></i></div><p>🔥 ${streak()}-day streak · ${weekActive()}/7 this week</p></div></section>
+ <h3 class="sec">Energy today</h3>
+ <div class="row" style="margin-top:0">${['low','normal','high'].map(e=>`<button class="${d.energy===e?'on':''}" data-a="energy" data-v="${e}">${{low:'🪫 Low',normal:'🔋 Normal',high:'⚡ High'}[e]}</button>`).join('')}</div>
+ ${msg}
+ <h3 class="sec">Today's quests</h3>
+ ${S.quests.map(q=>{const on=d.done.some(e=>e.id===q.id);return `<button class="q ${on?'done':''}" data-a="done" data-v="${q.id}"><span class="ic">${q.ic}</span><span class="t"><strong>${esc(q.n)}</strong><small>${q.s}</small></span><span class="xp">+${q.xp}</span><span class="chk">${on?'✓':''}</span></button>`}).join('')}
+ <div class="add"><input id="qn" placeholder="Add your own quest" maxlength="40" aria-label="New quest name"><select id="qx" aria-label="XP value"><option value="10">10 XP</option><option value="20" selected>20 XP</option><option value="30">30 XP</option></select><button data-a="addq">Add</button></div>
+ <div class="row"><button data-a="deed" ${d.deed?'disabled':''}>🌟 ${d.deed?'Great deed logged':'Log a great deed (+25 XP)'}</button></div>
+ <div class="row" style="margin-top:0"><button data-a="rest" class="${d.rest?'on':''}">${d.rest?'Rest day on (tap to undo)':'😌 Take a rest day (+10 XP)'}</button></div>`;
+}
+function week_(){
+ const days=[...Array(7)].map((_,i)=>ago(6-i)),mx=Math.max(60,...days.map(dayXP));
+ const tot=Object.keys(S.log).reduce((a,k)=>a+S.log[k].done.length,0);
+ const by={Body:0,Mind:0,Spirit:0};
+ Object.values(S.log).forEach(d=>d.done.forEach(e=>{const q=S.quests.find(x=>x.id===e.id);if(q&&by[q.s]!=null)by[q.s]+=e.xp}));
+ return `<div class="top"><h1>This week</h1><span class="pill">🪙 ${credits()}</span></div>
+ <div class="bars">${days.map(k=>{const d=S.log[k],h=dayXP(k)/mx*100;return `<div class="bar"><i class="${d&&d.rest&&!d.done.length?'r':''}" style="height:${d&&d.rest&&!d.done.length?12:h}%"></i>${['S','M','T','W','T','F','S'][new Date(k+'T12:00').getDay()]}</div>`}).join('')}</div>
+ <p style="color:var(--mute);font-size:14px">Gold bars are rest days. They count as active.</p>
+ <div class="stats"><div class="stat"><b>${streak()}</b><span>day streak</span></div><div class="stat"><b>${weekActive()}/7</b><span>active days</span></div><div class="stat"><b>${tot}</b><span>quests done</span></div></div>
+ <h3 class="sec">Skills</h3>
+ <div class="stats">${Object.entries(by).map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k} XP</span></div>`).join('')}</div>
+ <div class="note">Your streak forgives one missed day per week. Miss two in a week and it resets, so rest earlier instead of crashing later.</div>`;
+}
+function rewards_(){
+ const c=credits();
+ return `<div class="top"><h1>Rewards</h1><span class="pill">🪙 ${c}</span></div>
+ <p style="color:var(--mute)">You choose what is worth earning. Spend credits without guilt.</p>
+ ${S.rewards.map(r=>`<div class="rw"><span class="t"><strong>${esc(r.n)}</strong><br><small>🪙 ${r.c}</small></span><button data-a="buy" data-v="${r.id}" ${c<r.c?'disabled':''}>Redeem</button><button class="x" data-a="delr" data-v="${r.id}" aria-label="Delete reward">✕</button></div>`).join('')}
+ <div class="add"><input id="rn" placeholder="New reward" maxlength="40" aria-label="Reward name"><input id="rc" type="number" min="5" value="50" style="flex:0 0 80px" aria-label="Cost in credits"><button data-a="addr">Add</button></div>`;
+}
+function hero_(){
+ const h=S.hero,L=levelInfo(totalXP()).l;
+ const sw=(k,a)=>`<div class="sw">${a.map(c=>`<button data-a="hero" data-k="${k}" data-v="${c}" class="${h[k]===c?'on':''}" style="background:${c}" aria-label="${k} ${c}"></button>`).join('')}</div>`;
+ const op=(k,a)=>`<div class="row" style="margin-top:4px">${a.map(([v,n])=>`<button data-a="hero" data-k="${k}" data-v="${v}" class="${h[k]===v?'on':''}">${n}</button>`).join('')}</div>`;
+ return `<div class="top"><h1>Your hero</h1><span class="pill">Lv ${L}</span></div>
+ <div class="stage">${sprite(h,160)}</div>
+ <p style="color:var(--mute);margin:0 0 8px">New gear unlocks at levels 2, 3, 5 and 8.</p>
+ <label>Name</label><input data-h="name" value="${esc(h.name)}" maxlength="20" style="width:100%;margin:4px 0 10px">
+ <label>Character</label>${op('gender',[['man','Man'],['woman','Woman'],['other','Other']])}
+ <label>Hair</label>${op('hair',[['short','Short'],['spiky','Spiky'],['long','Long']])}
+ <label>Hair color</label>${sw('hairC',['#2b1b0e','#5a3b1e','#c8832d','#e8c547','#b83b5e','#7fd1e8'])}
+ <label>Skin</label>${sw('skin',['#fbd9b5','#f1c27d','#d79a63','#a8693a','#6e4326'])}
+ <label>Outfit</label>${sw('outfit',['#1c8c80','#6b4fa0','#c0392b','#2f6fd0','#e08e1b','#444b66'])}
+ <h3 class="sec">My story</h3>
+ <textarea data-h="story" maxlength="400" placeholder="Who are you? Where did you come from? Who do you want to become?" aria-label="My story">${esc(h.story)}</textarea>
+ <input data-h="goal" value="${esc(h.goal)}" maxlength="60" placeholder="My big goal" aria-label="My big goal" style="width:100%;margin-top:10px">
+ <h3 class="sec">Chapters</h3>
+ ${CHAP.map(([l,t])=>l<=L?`<div class="chap"><b>Chapter ${l}.</b> ${esc(t.replace(/\{n\}/g,h.name||'Hero'))}</div>`:`<div class="chap lock">🔒 Reach level ${l} to unlock</div>`).join('')}`;
+}
+function care_(){
+ const open=S.slips.filter(x=>!x.f),done=S.slips.length-open.length;
+ return `<div class="top"><h1>Shadows</h1><span class="pill">🪙 ${credits()}</span></div>
+ <div class="note rest">A private space. Nothing here lowers your level, takes your XP, or breaks your streak. The only cost is a few credits, and you can earn them back.</div>
+ <h3 class="sec">I slipped on...</h3>
+ <div class="row" style="flex-wrap:wrap">${S.shadows.map(x=>`<button data-a="slip" data-v="${x.id}" style="flex:1 1 45%">${esc(x.n)}</button>`).join('')}</div>
+ <div class="add"><select id="sw" aria-label="How big"><option value="1">Small (-10)</option><option value="2">Medium (-20)</option><option value="3">Big (-30)</option></select><input id="sn" placeholder="Add your own habit to ease off" maxlength="30" aria-label="New shadow"><button data-a="adds">Add</button></div>
+ <h3 class="sec">Still open: ${open.length}</h3>
+ ${open.length?open.map(x=>`<div class="rw"><span class="t"><strong>${esc(x.n)}</strong><br><small>-${x.w*10} credits until forgiven</small></span></div>`).join(''):'<p style="color:var(--mute)">Nothing open. You are in a good place.</p>'}
+ ${open.length?'<div class="note">How to clear them: reach today\'s XP goal (clears one) or log a great deed (clears all).</div>':''}
+ <p style="color:var(--mute)">Forgiven so far: ${done}</p>
+ <h3 class="sec">Why it works this way</h3>
+ <ul class="why" style="padding-left:18px"><li><b>The app cannot know.</b> So it is built to make honesty feel safe. Logging a slip earns +5 credits (twice a day), like the slip buttons in other habit apps.</li>
+ <li><b>Guilt backfires.</b> People who show themselves compassion after failing regain self-control better than people who feel guilty.</li>
+ <li><b>One slip is data.</b> Missing once is not failure. The harm comes from thinking "I ruined it, so why bother."</li>
+ <li><b>Recovery beats punishment.</b> Like Habitica's recoverable HP, penalties here are small and fully refundable.</li></ul>
+ <button data-a="reset" style="width:100%;margin-top:16px">Reset all data</button>`;
+}
+function render(){
+ const v={today:today_,hero:hero_,week:week_,rewards:rewards_,care:care_}[S.tab]();
+ document.getElementById('app').innerHTML=v;
+ document.getElementById('nav').innerHTML=[['today','🎯','Today'],['hero','🧙','Hero'],['week','📈','Week'],['rewards','🎁','Shop'],['care','💜','Shadows']].map(([k,i,n])=>`<button data-a="tab" data-v="${k}" class="${S.tab===k?'on':''}" ${S.tab===k?'aria-current="page"':''}>${i}<br>${n}</button>`).join('');
+}
+document.addEventListener('click',ev=>{
+ const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,v=b.dataset.v,t=today();
+ if(a==='tab'){S.tab=v;save();render();window.scrollTo(0,0)}
+ else if(a==='done')complete(v);
+ else if(a==='energy'){day(t).energy=v;save();render()}
+ else if(a==='rest'){const d=day(t);d.rest=!d.rest;if(d.rest)toast('Rest well. Your streak is safe.');save();render()}
+ else if(a==='addq'){const n=document.getElementById('qn').value.trim();if(!n)return toast('Name your quest first');
+  S.quests.push({id:'q'+Date.now(),n,ic:'⭐',xp:+document.getElementById('qx').value,s:'Spirit'});save();render()}
+ else if(a==='buy'){const r=S.rewards.find(x=>x.id===v);if(r&&credits()>=r.c){S.spent+=r.c;save();render();toast('Enjoy: '+r.n)}}
+ else if(a==='delr'){S.rewards=S.rewards.filter(x=>x.id!==v);save();render()}
+ else if(a==='addr'){const n=document.getElementById('rn').value.trim(),c=+document.getElementById('rc').value;if(!n||!(c>0))return toast('Add a name and a cost');
+  S.rewards.push({id:'r'+Date.now(),n,c});save();render()}
+ else if(a==='hero'){S.hero[b.dataset.k]=v;save();render()}
+ else if(a==='deed'){const d=day(t);if(d.deed)return;d.deed=1;d.extra=(d.extra||0)+25;const f=forgive(99);save();render();toast(f?'🌟 Great deed! '+f+' shadow(s) forgiven.':'🌟 Great deed! +25 XP')}
+ else if(a==='slip'){const x=S.shadows.find(z=>z.id===v),w=+document.getElementById('sw').value;if(!x)return;const d=day(t);
+  S.slips.push({id:'x'+Date.now(),n:x.n,w,f:0});if((d.hn||0)<2){d.hn=(d.hn||0)+1;d.extra=(d.extra||0)+5}save();render();toast(KIND[Math.floor(Math.random()*KIND.length)])}
+ else if(a==='adds'){const n=document.getElementById('sn').value.trim();if(!n)return toast('Name it first');S.shadows.push({id:'s'+Date.now(),n});save();render()}
+ else if(a==='reset'){if(confirm('Erase all progress?')){S=dflt();save();render()}}
+});
+document.addEventListener('input',e=>{const k=e.target.dataset&&e.target.dataset.h;if(k){S.hero[k]=e.target.value;save()}});
+render();
+</script>
+</body>
+</html>
